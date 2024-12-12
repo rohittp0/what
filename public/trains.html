@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trains and Events</title>
+
+    <link rel="stylesheet" href="/css/trains.css">
+    <script src="/js/trains.js" defer></script>
+</head>
+<body>
+<div id="container">
+    <h1>What is My Train</h1>
+    <div class="search-section">
+        <label for="wait-input">How patient are you ( in minutes )?</label>
+        <input type="number" id="wait-input" min="0" placeholder="e.g. 30" />
+        <button id="search-btn">Search</button>
+    </div>
+
+    <div id="message-container"></div>
+
+    <div class="results-section" style="display: none;">
+        <h2>Matching Trains</h2>
+        <table id="results-table" border="1" cellpadding="5" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Train</th>
+                <th>Current Station</th>
+                <th>Arrival Time</th>
+                <th>Event Details</th>
+                <th>Wait Time (seconds)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Results will be injected here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
