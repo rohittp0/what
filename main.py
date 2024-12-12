@@ -117,6 +117,8 @@ def match_events(trains, events, wait_time):
 
 
 def main():
+    print("__Welcome to What Is My Train__\n")
+
     if not get_token():
         phone = f'+91{input("Enter your phone number: ")}'
         print(send_otp(phone))
