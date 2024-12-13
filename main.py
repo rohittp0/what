@@ -38,13 +38,13 @@ def login_internal(phone: str, otp: str):
 def get_token():
     try:
         data = json.load(open("auth.json", "r"))
-        return data["token"], data["refreshToken"]
+        return data["token"], data["refreshToken"], data["phoneNumber"]
     except FileNotFoundError:
-        return None, None
+        return None, None, None
 
 
 def request_with_auth(method, path, **kwargs):
-    token, refresh = get_token()
+    token, refresh, phone = get_token()
     if not token or not refresh:
         raise ValueError("Not logged in. No token found.")
     try:
@@ -57,11 +57,14 @@ def request_with_auth(method, path, **kwargs):
             raise e
 
         # Refresh token if 401
-        response = requests.get(th_base_url + "auth/refresh",
-                                headers={**th_headers, "authorization": refresh})
+        response = requests.post(th_base_url + "auth/refresh",
+                                 json={"phoneNumber": phone},
+                                 headers={**th_headers, "authorization": refresh})
         response.raise_for_status()
 
         data = response.json()
+        data["phoneNumber"] = phone
+
         json.dump(data, open("auth.json", "w"))
         return request_with_auth(method, path, **kwargs)
 
@@ -157,7 +160,7 @@ def get_trains():
     wait_minutes = int(wait_str)
     wait_time = timedelta(minutes=wait_minutes)
 
-    token, _ = get_token()
+    token, _, _ = get_token()
     if not token:
         return jsonify({"error": "Not logged in"}), 401
 
@@ -166,6 +169,19 @@ def get_trains():
     matched = match_events(trains, events, wait_time)
 
     return jsonify({"matched_trains": matched})
+
+
+@app.route('/members/<page>')
+def member(page):
+    page = int(page or 1)
+    response = request_with_auth("GET", f"member/invite/m/{page}").json()
+    return jsonify(response["data"])
+
+
+@app.route('/member/<uid>')
+def member_detail(uid):
+    response = request_with_auth("GET", f"member/{uid}").json()
+    return jsonify(response)
 
 
 @app.route('/', defaults={'path': ''})

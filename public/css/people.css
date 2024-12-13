@@ -1,0 +1,128 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.pagination-controls button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #0077ff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+}
+
+.pagination-controls button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+main {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.card {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.card .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 2px solid #0077ff;
+}
+
+.card h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+.card p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.card p:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.call-button {
+    display: inline-block;
+    margin: 0.5rem 0;
+    padding: 0.4rem 0.8rem;
+    background: #0077ff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background 0.2s ease-in-out;
+}
+
+.call-button:hover {
+    background: #005fc7;
+}
+
+.info-message, .error-message {
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.info-message {
+    background: #e6f7e6;
+    color: #0b602b;
+    border: 1px solid #b2e2b2;
+}
+
+.error-message {
+    background: #ffe3e3;
+    color: #990000;
+    border: 1px solid #e6a6a6;
+}
