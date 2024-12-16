@@ -11,7 +11,6 @@ train_base_url = "https://whereismytrain.in/cache/live_station?station_code="
 th_base_url = "https://app-api.tinkerhub.org/"
 
 th_headers = {
-    "Content-Type": "application/json",
     "host": "app-api.tinkerhub.org",
     "app-version": "189",
     "user-agent": "Dart/3.5 (dart:io)"
@@ -50,6 +49,7 @@ def request_with_auth(method, path, **kwargs):
     try:
         response = requests.request(method, th_base_url + path, headers={**th_headers, "authorization": token},
                                     **kwargs)
+        print(response.text)
         response.raise_for_status()
         return response
     except requests.exceptions.HTTPError as e:
@@ -198,6 +198,32 @@ def serve_static(path):
             return send_from_directory(app.static_folder, 'index.html')
         else:
             return "File not found", 404
+
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file provided"}), 400
+
+    file = request.files['file']
+    filename = file.filename or "upload.jpg"
+
+    # Prepare multipart form data
+    # 'image' is the field name expected by the upstream endpoint
+    # We explicitly set Content-Type and filename in files tuple
+    files = {
+        'image': (filename, file, 'application/octet-stream')
+    }
+
+    try:
+        response = request_with_auth(
+            'POST',
+            'aws/s3/upload',
+            files=files
+        )
+        return jsonify(response.json())
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':

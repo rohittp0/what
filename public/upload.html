@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Upload File</title>
+    <link rel="stylesheet" href="/css/upload.css">
+    <script src="/js/upload.js" defer></script>
+</head>
+<body>
+<div id="container">
+    <h1>Keep Your Ticket Safe</h1>
+    <div class="form-group">
+        <label for="file-input">Choose Image:</label>
+        <input type="file" id="file-input" accept="image/*"/>
+    </div>
+    <button id="upload-btn">Upload</button>
+
+    <div id="result-section" style="display: none;">
+        <img id="file-preview" alt="Uploaded File" src=""/>
+        <a id="file-url" href="#" target="_blank">View Uploaded File</a>
+    </div>
+
+    <div id="messages"></div>
+</div>
+</body>
+</html>

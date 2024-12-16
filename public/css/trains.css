@@ -42,7 +42,7 @@ h1, h2 {
     text-align: center;
 }
 
-#search-btn {
+.btn {
     padding: 0.5rem 1rem;
     border: none;
     background: #0077ff;
@@ -51,11 +51,11 @@ h1, h2 {
     cursor: pointer;
 }
 
-#search-btn:hover {
+.btn:hover {
     background: #005fc7;
 }
 
-#search-btn:disabled {
+.btn:disabled {
     background: #6f6f6f;
 }
 
